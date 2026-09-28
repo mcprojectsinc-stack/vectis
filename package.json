@@ -1,0 +1,31 @@
+{
+  "name": "vectis",
+  "private": true,
+  "version": "0.2.0",
+  "description": "Vectis — open-source, plug-and-play infrastructure troubleshooting with a ticket-driven autopilot.",
+  "workspaces": [
+    "packages/server",
+    "packages/agent",
+    "packages/web"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n server,agent,web -c green,yellow,cyan \"npm run dev:server\" \"npm run dev:agent\" \"npm run dev:web\"",
+    "dev:server": "npm -w @td/server run dev",
+    "dev:agent": "wait-on tcp:4000 && npm -w @td/agent run dev",
+    "dev:web": "npm -w @td/web run dev",
+    "build:web": "npm -w @td/web run build",
+    "start:server": "npm -w @td/server run start",
+    "start:agent": "npm -w @td/agent run start"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^8.0.2",
+    "concurrently": "^9.1.2",
+    "wait-on": "^8.0.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "nodemailer": "^6.10.1"
+  }
+}
